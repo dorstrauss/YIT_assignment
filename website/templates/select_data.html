@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+{% load static %}
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}"/>
+    <title>Select Data</title>
+</head>
+
+<body>
+<div class="page-container">
+
+    <nav class="nav-container">
+        <img src="{% static 'images/YIT_logo.png' %}" style=" height:50px; width:auto;">
+        <a href="{% url 'component' %}">
+            Component
+        </a>
+        <a href="{% url 'insert_data' %}">
+            Insert Data
+        </a>
+        <a href="{% url 'select_data' %}">
+            Select Data
+        </a>
+    </nav>
+
+    <form class="form-container" method="POST" id="update_form" action="{% url 'save_component' %}">
+        {% csrf_token %}
+        <div class="options-category options-input-wrapper">
+            <div class="image-label">תמונה</div>
+            <select class="options-select select-image" id="image" name="image_name">
+                <option value="">--Choose an option--</option>
+                {% for value in images %}
+                    <option value="{{ value }}">{{ value }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="options-category options-input-wrapper" >
+            <div class="category-label">קטגוריה</div>
+            <select class="options-select select-category" id="category" name="category">
+                <option value="">--Choose an option--</option>
+                {% for value in categories %}
+                    <option value="{{ value }}">{{ value }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="options-title options-input-wrapper">
+            <div class="title-label">כותרת</div>
+            <select class="options-select select-title" id="title" name="title">
+                <option value="">--Choose an option--</option>
+                {% for value in titles %}
+                    <option value="{{ value }}">{{ value }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="options-subtitle options-input-wrapper">
+            <div class="subtitle-label">כותרת משנה</div>
+            <select class="options-select select-subtitle" id="subtitle" name="subtitle">
+                <option value="">--Choose an option--</option>
+                {% for value in subtitles %}
+                    <option value="{{ value }}">{{ value }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="options-credit options-input-wrapper">
+            <div class="credit-label">שם המחבר</div>
+            <select class="options-select select-credit" id="credit" name="credit">
+                <option value="">--Choose an option--</option>
+                {% for value in credits %}
+                    <option value="{{ value }}">{{ value }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <input class="form-btn-save" type="submit" name="שמור" value="שמור"/>
+
+    </form>
+
+    {% if successful_save %}
+        <div class="modal-success">
+            <div class="modal-success-wrapper">
+                <div class="success-text"> הבחירה נשמרה בהצלחה</div>
+                <a class="success-btn" href="{% url 'component' %}">עמוד הבית</a>
+            </div>
+        </div>
+    {% endif %}
+</div>
+
+</body>
+
+</html>
